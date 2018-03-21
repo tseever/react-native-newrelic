@@ -20,7 +20,28 @@ public class RNNewRelic extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void send(String name, ReadableMap eventAttributes) {
-        NewRelic.recordEvent(name ,RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
+        NewRelic.recordCustomEvent(name, RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
+    }
+
+    @ReactMethod
+    public void recordBreadcrumb(String name, ReadableMap eventAttributes) {
+        NewRelic.recordBreadcrumb(name, RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
+    }
+
+    @ReactMethod
+    public void startInteraction(String name) {
+        NewRelic.startInteraction(name);
+    }
+
+    @ReactMethod
+    public void stopInteraction(String name) {
+        NewRelic.endInteraction(name);
+    }
+
+    @ReactMethod
+    public void recordError(String name, ReadableMap eventAttributes) {
+        Exception ex = new Exception(name);
+        NewRelic.recordHandledException(ex, RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
     }
 
     @ReactMethod
