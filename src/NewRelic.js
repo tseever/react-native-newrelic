@@ -101,6 +101,37 @@ class NewRelic {
     });
     RNNewRelic.send(nameStr, argsStr);
   }
+
+  startInteraction(name) {
+    RNNewRelic.startInteraction(name);
+  }
+
+  stopInteraction(name) {
+    RNNewRelic.stopInteraction(name);
+  }
+
+  crashNow(message) {
+    RNNewRelic.crashNow(message);
+  }
+
+  recordBreadcrumb(name, args) {
+    const nameStr = String(name);
+    const argsStr = {};
+    _.forEach(args, (value, key) => {
+      argsStr[String(key)] = String(value);
+    });
+    RNNewRelic.recordBreadcrumb(nameStr, argsStr);
+  }
+
+  recordError(name, args) {
+    const nameStr = String(name);
+    const argsStr = {};
+    _.forEach(args, (value, key) => {
+      argsStr[String(key)] = String(value);
+    });
+    RNNewRelic.recordError(nameStr, argsStr);
+  }
+
 }
 
 export default new NewRelic();
